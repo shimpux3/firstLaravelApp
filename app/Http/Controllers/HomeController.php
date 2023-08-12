@@ -23,4 +23,9 @@ class HomeController extends Controller
         $service = new UserService();
         dd($service->roles());
     }
+
+    public function viewHome()
+    {
+        return view('dashboard');
+    }
 }

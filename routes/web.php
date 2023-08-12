@@ -20,3 +20,4 @@ Route::get('/', function () {
 Route::get('login', 'HomeController@index');
 Route::post('login', 'HomeController@login');
 Route::get('roles', 'HomeController@roles');
+Route::get('home', 'HomeController@viewHome');
