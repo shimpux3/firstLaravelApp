@@ -3,7 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Services\UserService;
+use App\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Validator;
+
 
 class HomeController extends Controller
 {
@@ -15,7 +19,28 @@ class HomeController extends Controller
 
     public function login(Request $request)
     {
-        dd($request->all());
+        $validator = Validator::make($request->all(), [
+            'email' => 'required|email',
+            'password' => 'required'
+        ]);
+        if ($validator->fails()) {
+            return redirect('login')->withErrors($validator->errors());
+        }
+       // dd(Hash::make('welcome123'));
+        $email = $request->email;
+        $password = $request->password;
+       // dd($email, $password);
+//        $user = User::where('email', $email)->first();
+//        if (password_verify($password, $user->password)) {
+//            return redirect('home');
+//        } else {
+//            return redirect('login');
+//        }
+        if (Auth::attempt(['email' => $email, 'password' => $password])) {
+            return redirect('home');
+        } else {
+            return redirect('login');
+        }
     }
 
     public function roles()
@@ -27,5 +52,21 @@ class HomeController extends Controller
     public function viewHome()
     {
         return view('dashboard');
+    }
+
+    public function logout()
+    {
+        \request()->session()->flush();
+        return redirect('login');
+    }
+
+    public function viewChangePassword()
+    {
+        return redirect('view_change_password');
+    }
+
+    public function changePassword(Request $request)
+    {
+        dd($request->all());
     }
 }
