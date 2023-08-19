@@ -6,6 +6,7 @@ use App\Services\UserService;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 
 
@@ -13,7 +14,7 @@ class HomeController extends Controller
 {
     public function index()
     {
-
+        //dd(Hash::make('welcome'));
         return view('auth.login');
     }
 
