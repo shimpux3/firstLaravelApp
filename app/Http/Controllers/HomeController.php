@@ -31,13 +31,7 @@ class HomeController extends Controller
         $email = $request->email;
         $password = $request->password;
 
-        // dd($email, $password);
-//        $user = User::where('email', $email)->first();
-//        if (password_verify($password, $user->password)) {
-//            return redirect('home');
-//        } else {
-//            return redirect('login');
-//        }
+
 
         if (Auth::attempt(['email' => $email, 'password' => $password])) {
             return redirect('home');
